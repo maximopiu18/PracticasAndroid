@@ -25,7 +25,8 @@ public class Activity_Listas extends Activity {
             "Peru",
             "Alemania",
             "Francia",
-            "Wakanda"
+            "Wakanda",
+            "Inglaterra"
     };
 
     @Override
