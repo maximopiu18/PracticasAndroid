@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class Activity_Spinners extends Activity {
 
     // hacer lista de el año 1500 al 2020 ;
@@ -19,6 +21,8 @@ public class Activity_Spinners extends Activity {
 
     ArrayAdapter<Integer> adapteranios;
     Integer anios[];
+    ArrayList<String> lista;
+    ArrayAdapter<String>adapterNumeros;
 
 
     @Override
@@ -30,27 +34,8 @@ public class Activity_Spinners extends Activity {
         adapter_sexo = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sexos);
         spinner_sexo.setAdapter(adapter_sexo);
 
-        spinner_sexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("posicion", "posicion" + position);
-                Log.e( "item", "seleccionaste: " + sexos[position]);
-                if(position!=0)
-                {
-                    sexo  = sexos[position];
-                    Log.e( "sexo", "sexo: " + sexo);
-                    Toast.makeText(Activity_Spinners.this,"el sexo es: " + sexo, Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        crear_anios();
-
+        lista = new ArrayList<String>();
+        llenarLista();
 
     }
 
@@ -73,6 +58,42 @@ public class Activity_Spinners extends Activity {
 
             }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+
+    public void llenarLista(){
+        int i =0;
+        while(i<100){
+            lista.add(String.valueOf(i));
+            i++;
+        }
+        adapterNumeros = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
+        spinner_sexo.setAdapter(adapterNumeros);
+        spinner_sexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String nombre = String.valueOf(lista.get(position));
+                Log.e("nombre: " , "nombre: " + nombre);
+                if(position==0)
+                {
+                    int i =0;
+                    while(i<101) {
+                        if(lista.size()>1) {
+                            lista.remove(i);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        i++;
+                    }
+                }
+            }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
